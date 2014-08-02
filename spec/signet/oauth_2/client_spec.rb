@@ -903,6 +903,10 @@ describe Signet::OAuth2::Client, 'authorization_uri' do
       @client.authorization_uri(:approval_prompt => 'force', :prompt => 'consent')
     end).should raise_error(ArgumentError)
   end
+
+  it 'should return approval_prompt if is set to force' do
+    expect(@client.authorization_uri(:approval_prompt => 'force').to_s.include?('approval_prompt=force')).to be true
+  end
 end
 
 describe Signet::OAuth2::Client, 'configured with custom parameters' do

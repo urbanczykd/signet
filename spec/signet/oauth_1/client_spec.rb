@@ -41,62 +41,52 @@ describe Signet::OAuth1::Client, 'unconfigured' do
   end
 
   it 'should have no temporary_credential_uri' do
-    @client.temporary_credential_uri.should == nil
+    expect(@client.temporary_credential_uri).to be_nil
   end
 
   it 'should allow the temporary_credential_uri to be set to a String' do
     @client.temporary_credential_uri = "http://example.com/"
-    @client.temporary_credential_uri.should === "http://example.com/"
+    expect(@client.temporary_credential_uri.to_s).to eq("http://example.com/")
   end
 
   it 'should allow the temporary_credential_uri to be set to a URI' do
-    @client.temporary_credential_uri =
-      Addressable::URI.parse("http://example.com/")
-    @client.temporary_credential_uri.should === "http://example.com/"
+    @client.temporary_credential_uri = Addressable::URI.parse("http://example.com/")
+    expect(@client.temporary_credential_uri.to_s).to eq("http://example.com/")
   end
 
   it 'should have no authorization_uri' do
-    @client.authorization_uri.should == nil
+    expect(@client.authorization_uri).to be_nil
   end
 
   it 'should allow the authorization_uri to be set to a String' do
     @client.authorization_uri = 'http://example.com/authorize'
-    @client.authorization_uri.to_s.should include(
-      'http://example.com/authorize'
-    )
+    expect(@client.authorization_uri.to_s.include?("http://example.com/authorize")).to be true
   end
 
   it 'should allow the authorization_uri to be set to a Hash' do
-    @client.authorization_uri = {
-      :scheme => 'http', :host => 'example.com', :path => '/authorize'
-    }
-    @client.authorization_uri.to_s.should include(
-      'http://example.com/authorize'
-    )
+    @client.authorization_uri = { :scheme => 'http', :host => 'example.com', :path => '/authorize' }
+    expect(@client.authorization_uri.to_s.include?('http://example.com/authorize')).to be true
   end
 
   it 'should allow the authorization_uri to be set to a URI' do
-    @client.authorization_uri =
-      Addressable::URI.parse('http://example.com/authorize')
-    @client.authorization_uri.to_s.should include(
-      'http://example.com/authorize'
-    )
+    @client.authorization_uri = Addressable::URI.parse('http://example.com/authorize')
+    expect(@client.authorization_uri.to_s.include?('http://example.com/authorize')).to be true
   end
 
   it 'should have no token_credential_uri' do
-    @client.token_credential_uri.should == nil
+    expect(@client.token_credential_uri).to be_nil
   end
 
   it 'should allow the token_credential_uri to be set to a String' do
     @client.token_credential_uri = "http://example.com/"
-    @client.token_credential_uri.should === "http://example.com/"
+    expect(@client.token_credential_uri.to_s).to eq("http://example.com/")
   end
 
   it 'should allow the token_credential_uri to be set to a Hash' do
     @client.token_credential_uri = {
       :scheme => 'http', :host => 'example.com', :path => '/token'
     }
-    @client.token_credential_uri.to_s.should === 'http://example.com/token'
+    expect(@client.token_credential_uri.to_s).to eq('http://example.com/token')
   end
 
   it 'should allow the token_credential_uri to be set to a URI' do
